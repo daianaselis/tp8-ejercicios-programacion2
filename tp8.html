@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="contenedor">
+
+    </div>
+    <input placeholder="Nombre" id="nombre"/>
+    <input placeholder="Telefono" id="telefono"/>
+    <button onClick="guardarObjeto()">Guardar</button>
+    <script>
+        var arregloObjetos = JSON.parse(localStorage.getItem('arregloObjetos') == 'undefined' ? '[]' : localStorage.getItem('arregloObjetos'));
+
+        function mostrarObjetos(){
+            var contenedor = document.getElementById("contenedor");
+            contenedor.innerHTML = arregloObjetos.map(objeto =>
+                `<div>
+                    <p>${objeto.nombre}</p>
+                    <p>${objeto.telefono}</p>
+                </div>`
+            ).join('');
+        }
+
+        function guardarObjeto(){
+            let newObject = {
+                nombre: document.getElementById('nombre').value,
+                telefono: document.getElementById('telefono').value,
+            }
+            console.log(newObject);
+            arregloObjetos.push(newObject);
+            mostrarObjetos();
+            localStorage.setItem('arregloObjetos', JSON.stringify(arregloObjetos));
+        }
+
+        mostrarObjetos();
+    </script>
+</body>
+</html>
